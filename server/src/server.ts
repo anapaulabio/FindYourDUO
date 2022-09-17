@@ -1,5 +1,9 @@
 import express from 'express';
+import cors from 'cors';
+
 import { PrismaClient } from '@prisma/client';
+import { convertHoursToMinutes } from './utils/convert-hours-minutes';
+import { convertMinutesToHours } from './utils/convert-minutes-hours';
 
 
 const prisma = new PrismaClient();
@@ -7,6 +11,7 @@ const prisma = new PrismaClient();
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 
 app.get('/games', async (req, res) => {
@@ -31,7 +36,8 @@ app.get('/games/:id/ads', async (req, res) => {
             weekDays: true,
             useVoiceChannel: true,
             yearsPlaying: true,
-            hourStart: true
+            hourStart: true,
+            hourEnd: true
         },
         where: {
             gameId
@@ -43,19 +49,21 @@ app.get('/games/:id/ads', async (req, res) => {
     return res.json(ads.map(ad => {
         return {
             ...ad,
-            weekDays: ad.weekDays.split(',')
+            weekDays: ad.weekDays.split(','),
+            hourStart: convertMinutesToHours(ad.hourStart),
+            hourEnd: convertMinutesToHours(ad.hourEnd)
         }
     }));
 });
 
 app.get('/games/:id/discord',async (req, res) => {
-    const adId = req.params.id;
+    const id = req.params.id;
     const ad = await prisma.ad.findUniqueOrThrow({
         select: {
             discord:true,
         },
         where: {
-            id: adId,
+            id: id,
         }
     })
     res.json({discord: ad.discord});
@@ -63,21 +71,23 @@ app.get('/games/:id/discord',async (req, res) => {
 
 app.post('/games/:id/ads', async (req, res) => {
     const gameId = req.params.id;
-    const body:any = req.body;
-
+    const body: any = req.body;
+ 
     const newAd = await prisma.ad.create({
         data: {
             gameId,
             name: body.name,
             yearsPlaying: body.yearsPlaying,
-            discord: body.discord,
+            discord: body.discord, 
             weekDays: body.weekDays,
-            hourStart: body.hourStart,
+            hourStart: convertHoursToMinutes(body.hourStart),
+            hourEnd: convertHoursToMinutes(body.hourEnd),
             useVoiceChannel: body.useVoiceChannel,
         }
     })
     res.status(201).json(newAd) 
 });
+
 
 
 app.listen(3000, () => 
