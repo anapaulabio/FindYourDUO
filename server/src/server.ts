@@ -79,12 +79,12 @@ app.post('/games/:id/ads', async (req, res) => {
             name: body.name,
             yearsPlaying: body.yearsPlaying,
             discord: body.discord, 
-            weekDays: body.weekDays,
+            weekDays: body.weekDays.join(','),
             hourStart: convertHoursToMinutes(body.hourStart),
             hourEnd: convertHoursToMinutes(body.hourEnd),
             useVoiceChannel: body.useVoiceChannel,
         }
-    })
+    })  
     res.status(201).json(newAd) 
 });  
 

@@ -42,7 +42,7 @@ export function CreateAdModal() {
         "name": data.name,
         "yearsPlaying": Number(data.yearsPlaying),
         "discord": data.discord,
-        "weekDays": data.weekDays,
+        "weekDays": weekDays.map(Number),
         "hourStart": data.hourStart,
         "hourEnd": data.hourEnd,
         "useVoiceChannel": useVoiceChannel
