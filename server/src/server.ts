@@ -43,8 +43,8 @@ app.get('/games/:id/ads', async (req, res) => {
             gameId
         },
         orderBy: {
-            createdAt: 'desc',
-        }
+            createdAt: 'desc', 
+        }  
     });
     return res.json(ads.map(ad => {
         return {
@@ -86,9 +86,9 @@ app.post('/games/:id/ads', async (req, res) => {
         }
     })
     res.status(201).json(newAd) 
-});
+});  
 
 
 
 app.listen(3000, () => 
-    console.log('Server is running on PORT 3000'))
+    console.log('Server is running on PORT 3000'));
