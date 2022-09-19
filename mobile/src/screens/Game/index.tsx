@@ -13,23 +13,30 @@ import logoImg from '../../assets/logo-nlw-esports.png';
 import { styles } from './styles';
 import { GameParams } from '../../@types/navigation';
 import { DuoCard, DuoCardProps } from '../../components/DuoCard';
-
+import { DuoMach } from '../../components/DuoMach';
 
 
 export function Game() {
 
-    const [duos, setDuos] = useState<DuoCardProps[]>([])
+    const [duos, setDuos] = useState<DuoCardProps[]>([]);
+    const [discordDuoSelected, setDiscordSelected] = useState('');
 
     const navigation = useNavigation()
-    const route = useRoute();
-    const game = route.params as GameParams;
+    const router = useRoute();
+    const game = router.params as GameParams;
 
     function handleGoBack() {
         navigation.goBack()
     }
 
+    async function getDiscordUser(adsId: string){
+        fetch(`http://http://192.168.0.104:3000/ads/${adsId}/discord`)
+        .then(res => res.json())
+        .then(data => setDiscordSelected(data.discord))
+    }
+
     useEffect(() => {
-        fetch(`http://192.168.0.102:3000/games/${game.id}/ads`)
+        fetch(`http://http://192.168.0.104:3000/games/${game.id}/ads`)
             .then(res => res.json())
             .then(data => setDuos(data))
     }, []);
@@ -43,7 +50,7 @@ export function Game() {
                         <Entypo
                             name="chevron-thin-left"
                             color={THEME.COLORS.CAPTION_300}
-                            size={20}
+                            size={24}
                         />
                     </TouchableOpacity>
 
@@ -74,12 +81,18 @@ export function Game() {
                     horizontal
                     style={styles.containerList}
                     contentContainerStyle={[duos.length > 0 ? styles.contentList : styles.emptyListContent]}
-                    showsHorizontalScrollIndicator={false}
+                    showsHorizontalScrollIndicator
                     ListEmptyComponent={()=> (
                         <Text style={styles.emptyListText}>
                             Não há anúncios publicados ainda!
                         </Text>
                     )}/>
+
+                    <DuoMach 
+                    visible={discordDuoSelected.length > 0}
+                    discord={discordDuoSelected}
+                    onClose={ () => setDiscordSelected('')} 
+                    />
 
             </SafeAreaView>
         </Background>

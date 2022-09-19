@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 
-app.get('/games', async (req, res) => {
+app.get(' ip/games', async (req, res) => {
     const games = await prisma.game.findMany({
         include: {
             _count: {
