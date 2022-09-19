@@ -34,6 +34,8 @@ $ npx vite
 ```
 ![](img/web.png)
 
+## Rodando o mobile 
+
 ```bash
 # Em seu celular faça download do app Expo pelo Play store ou Apple store
 
@@ -51,9 +53,6 @@ $ npm run start
 
 # Acesse o QR code fornecido 
 ```
-
-## Rodando o mobile 
-
 
 ## Rodando o Back End (Servidor)
 
@@ -90,13 +89,11 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 # Autora
 
-<a href="">
- <img style="border-radius: 50%;" src="img\processed-fd168fd4-3692-4f52-9680-e475bb51be5e_A4cc1Rgb.png" width="200px;" alt=""/>
- <br />
 
- <h2><b>Ana Paula Oliveira 🚀</b></h2></a> 
+ <img style="border-radius:50%" src="img\processed-fd168fd4-3692-4f52-9680-e475bb51be5e_A4cc1Rgb.png" width="200px;" alt=""/>
+ <h3><b>Ana Paula Oliveira 🚀</b></h3>
  
- <h2>Feito com ❤️!👋🏽 Entre em contato!</h2>  
+ <h3>Feito com ❤️!👋🏽 Entre em contato!</h3>  
  <h1> <a href="https://www.linkedin.com/in/anapaulaoliveiraa" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white" target="_blank" width="90rem"></a> </h1>
 
 
